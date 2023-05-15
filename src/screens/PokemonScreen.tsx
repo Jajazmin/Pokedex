@@ -110,3 +110,5 @@ const PokemonScreen: React.FC = () => {
     </Container>
   );
         };
+
+        export default PokemonScreen;

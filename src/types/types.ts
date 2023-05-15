@@ -2,6 +2,9 @@ export const ADD_POKEMON = 'ADD_POKEMON';
 export const REMOVE_POKEMON = 'REMOVE_POKEMON';
 export const ADD_FAVORITE_POKEMON = 'ADD_FAVORITE_POKEMON';
 export const REMOVE_FAVORITE_POKEMON = 'REMOVE_FAVORITE_POKEMON';
+export const SET_POKEMON_LOADING = 'SET_POKEMON_LOADING';
+export const SET_POKEMON_ERROR = 'SET_POKEMON_ERROR';
+export const SET_POKEMON_SUCCESS = 'SET_POKEMON_SUCCESS';
 
 export interface Pokemon {
   id: number;
@@ -54,8 +57,26 @@ interface RemoveFavoritePokemonAction {
   id: number;
 }
 
+interface LoadingPokemonAction {
+  type: typeof SET_POKEMON_LOADING;
+  loading: Boolean;
+}
+
+interface ErrorPokemonAction {
+  type: typeof SET_POKEMON_ERROR;
+  error: string;
+}
+
+interface SuccessPokemonAction {
+  type: typeof SET_POKEMON_SUCCESS;
+  success: Boolean;
+}
+
 export type PokemonActionTypes =
   | AddPokemonAction
   | RemovePokemonAction
   | AddFavoritePokemonAction
-  | RemoveFavoritePokemonAction;
+  | RemoveFavoritePokemonAction
+  | LoadingPokemonAction
+  | ErrorPokemonAction
+  | SuccessPokemonAction;

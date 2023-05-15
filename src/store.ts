@@ -1,14 +1,14 @@
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension';
+// import { applyMiddleware } from 'redux';   no se usa
+import thunk, { ThunkMiddleware } from 'redux-thunk';
+// import { composeWithDevTools } from 'redux-devtools-extension';    no se usa
 import { ApolloClient, InMemoryCache } from 'apollo-boost';
 import { createHttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
-import { createApolloReducer } from 'redux-apollo';
+// import { createApolloReducer } from 'redux-apollo';     no se usa
 import { GET_POKEMON } from './graphql';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import pokemonReducer from './pokemon/reducer';
-import favoritesReducer from './pokemon/favorites';
+import {pokemonReducer} from './Redux/reducers/reducers';
+import favoritesReducer from './Redux/actions/favorites';
 
 const httpLink = createHttpLink({
   uri: 'https://graphql-pokemon2.vercel.app/',
@@ -28,12 +28,6 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const store = createStore(
-  createApolloReducer(client),
-  {},
-  composeWithDevTools(applyMiddleware(thunk))
-);
-
 export const getPokemon = (name: string) => {
   return client.query({
     query: GET_POKEMON,
@@ -46,8 +40,12 @@ const rootReducer = combineReducers({
   favorites: favoritesReducer,
 });
 
-export const store = configureStore({
+const middleware: ThunkMiddleware[] = [thunk];
+
+const store = configureStore({
   reducer: rootReducer,
+  middleware,
+  devTools: process.env.NODE_ENV !== 'production',
 });
 
 export type RootState = ReturnType<typeof store.getState>;

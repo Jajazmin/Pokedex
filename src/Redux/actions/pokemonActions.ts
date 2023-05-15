@@ -1,46 +1,51 @@
 import { ThunkAction } from 'redux-thunk';
-import { RootState } from '../index';
+import { RootState } from '../../store';
 import client from '../../client';
 import { getPokemon } from 'graphql-pokemon';
 import {
   ADD_POKEMON,
   REMOVE_POKEMON,
+  REMOVE_FAVORITE_POKEMON, 
+  ADD_FAVORITE_POKEMON,
   SET_POKEMON_LOADING,
   SET_POKEMON_ERROR,
   SET_POKEMON_SUCCESS,
   Pokemon,
-  REMOVE_FAVORITE, 
-  LOAD_FAVORITE, 
-  FavoriteActionTypes
+  // LOAD_FAVORITE, 
+  // FavoriteActionTypes,   no existe
   PokemonActionTypes,
+  PokemonState,
 } from '../../types/types';
 import { Dispatch } from 'redux';
 
-export const addPokemon = (): PokemonActionTypes => ({
+export const addPokemon = (pokemon: Pokemon): PokemonActionTypes => ({
   type: ADD_POKEMON,
+  payload: pokemon,
 });
 
-export const removePokemon = (): PokemonActionTypes => ({
+export const removePokemon = (id: number): PokemonActionTypes => ({
   type: REMOVE_POKEMON,
+  payload: id,
 });
 
-export const setPokemonLoading = (): PokemonActionTypes => ({
+export const setPokemonLoading = (loading: Boolean): PokemonActionTypes => ({
   type: SET_POKEMON_LOADING,
+  loading: loading,
 });
 
 export const setPokemonError = (error: string): PokemonActionTypes => ({
   type: SET_POKEMON_ERROR,
-  payload: error,
+  error: error,
 });
 
-export const setPokemonSuccess = (pokemon: any): PokemonActionTypes => ({
+export const setPokemonSuccess = (success: Boolean): PokemonActionTypes => ({
   type: SET_POKEMON_SUCCESS,
-  payload: pokemon,
+  success: success,
 });
 
 export const fetchPokemon = (): ThunkAction<void, RootState, unknown, PokemonActionTypes> => {
   return async (dispatch) => {
-    dispatch(setPokemonLoading());
+    dispatch(setPokemonLoading(true));
     try {
       const { data } = await client.query({ query: getPokemon, variables: { name: 'pikachu' } });
       dispatch(setPokemonSuccess(data?.pokemon));
@@ -50,23 +55,23 @@ export const fetchPokemon = (): ThunkAction<void, RootState, unknown, PokemonAct
   };
 };
 
-export const ADD_FAVORITE_POKEMON = 'ADD_FAVORITE_POKEMON';
-export const REMOVE_FAVORITE_POKEMON = 'REMOVE_FAVORITE_POKEMON';
+// export const ADD_FAVORITE_POKEMON = 'ADD_FAVORITE_POKEMON';
+// export const REMOVE_FAVORITE_POKEMON = 'REMOVE_FAVORITE_POKEMON';
 
-interface AddFavoritePokemonAction {
-  type: typeof ADD_FAVORITE_POKEMON;
-  pokemon: Pokemon;
-}
+// interface AddFavoritePokemonAction {
+//   type: typeof ADD_FAVORITE_POKEMON;
+//   pokemon: Pokemon;
+// }
 
-interface RemoveFavoritePokemonAction {
-  type: typeof REMOVE_FAVORITE_POKEMON;
-  id: string;
-}
+// interface RemoveFavoritePokemonAction {
+//   type: typeof REMOVE_FAVORITE_POKEMON;
+//   id: string;
+// }
 
-export type PokemonActions = AddFavoritePokemonAction | RemoveFavoritePokemonAction;
+// export type PokemonActions = AddFavoritePokemonAction | RemoveFavoritePokemonAction;
 
 export const addFavoritePokemon = (pokemon: Pokemon) => {
-  return (dispatch: Dispatch<PokemonActions>) => {
+  return (dispatch: Dispatch<PokemonActionTypes>) => {
     dispatch({
       type: ADD_FAVORITE_POKEMON,
       pokemon: pokemon
@@ -74,8 +79,8 @@ export const addFavoritePokemon = (pokemon: Pokemon) => {
   }
 }
 
-export const removeFavoritePokemon = (id: string) => {
-  return (dispatch: Dispatch<PokemonActions>) => {
+export const removeFavoritePokemon = (id: number) => {
+  return (dispatch: Dispatch<PokemonActionTypes>) => {
     dispatch({
       type: REMOVE_FAVORITE_POKEMON,
       id: id
@@ -83,31 +88,31 @@ export const removeFavoritePokemon = (id: string) => {
   }
 }
 
-const initialState: FavoriteState = {
-  favoritePokemon: null,
-};
+// const initialState: PokemonState = {
+//   count: 0,
+//   pokemons: [],
+//   favorites: [],
+//   loading: false, // ver si tiene sentido ese valor inicial
+//   error: "",
+// }
 
-interface FavoriteState {
-  favoritePokemon: Pokemon | null;
-}
-
-const favoritesReducer = (state = initialState, action: FavoriteActionTypes): FavoriteState => {
+const favoritesReducer = (state: PokemonState, action: PokemonActionTypes): PokemonState => {
   switch (action.type) {
-    case ADD_FAVORITE:
+    case ADD_FAVORITE_POKEMON:
       return {
         ...state,
-        favoritePokemon: action.payload,
+        favorites: state.favorites,
       };
-    case REMOVE_FAVORITE:
+    case REMOVE_FAVORITE_POKEMON:
       return {
         ...state,
-        favoritePokemon: null,
+        favorites: state.favorites,
       };
-    case LOAD_FAVORITE:
-      return {
-        ...state,
-        favoritePokemon: action.payload,
-      };
+    // case LOAD_FAVORITE:
+    //   return {
+    //     ...state,
+    //     favoritePokemon: action.payload,
+    //   };
     default:
       return state;
   }

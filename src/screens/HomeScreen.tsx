@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import PokemonListItem from '../components/PokemonListItem';
-import { RootState } from '../store/pokemon';
+import { RootState } from '../store';
 import { fetchPokemon } from '../Redux/actions/pokemonActions';
 import PokemonListHeader from '../components/PokemonListHeader';
 

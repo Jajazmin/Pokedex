@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useSelector } from 'react-redux';
-import { RootState } from '../actions/pokemonActions';
+import { RootState } from '../store';
 
 const PokemonListHeader = () => {
   const { loading, error, pokemons } = useSelector(

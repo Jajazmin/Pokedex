@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 import { StatusBar } from 'react-native';
 import styled from 'styled-components/native';
 import rootReducer from './store';
-import PokemonScreen from '../../screens/PokemonScreen';
+import PokemonScreen from './screens/PokemonScreen';
 import { Pokemon } from './types/types';
 
 export const getPokemonDetails = async (id: number): Promise<Pokemon> => {
