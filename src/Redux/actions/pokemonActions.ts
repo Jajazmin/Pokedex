@@ -8,13 +8,13 @@ import {
   SET_POKEMON_LOADING,
   SET_POKEMON_ERROR,
   SET_POKEMON_SUCCESS,
-  
+  Pokemon,
+  REMOVE_FAVORITE, 
+  LOAD_FAVORITE, 
+  FavoriteActionTypes
   PokemonActionTypes,
-} from './types';
+} from '../../types/types';
 import { Dispatch } from 'redux';
-import { Pokemon } from '../types';
-import { ADD_FAVORITE, REMOVE_FAVORITE, LOAD_FAVORITE, FavoriteActionTypes } from '../types/types';
-import { Pokemon } from '../types/types';
 
 export const addPokemon = (): PokemonActionTypes => ({
   type: ADD_POKEMON,

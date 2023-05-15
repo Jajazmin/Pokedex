@@ -1,13 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface PokemonFavorite {
-  id: number;
-  name: string;
-  image: string;
-}
+import { Pokemon } from '../../types/types';
 
 interface FavoritesState {
-  favorites: PokemonFavorite[];
+  favorites: Pokemon[];
 }
 
 const initialState: FavoritesState = {
@@ -18,7 +13,7 @@ const favoritesSlice = createSlice({
   name: 'favorites',
   initialState,
   reducers: {
-    addFavorite(state, action: PayloadAction<PokemonFavorite>) {
+    addFavorite(state, action: PayloadAction<Pokemon>) {
       state.favorites.push(action.payload);
     },
     removeFavorite(state, action: PayloadAction<number>) {

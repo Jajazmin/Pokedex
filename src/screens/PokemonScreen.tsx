@@ -6,9 +6,9 @@ import styled from 'styled-components/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { addFavoritePokemon } from '../store/favorites';
-import { Pokemon } from '../types';
+import { Pokemon } from '../types/types';
 import { getPokemonDetails } from '../api/pokemon';
-import PokemonListScreen from './PokemonListScreen';
+import PokemonListScreen from './FavoritesScreen';
 import FavoritesScreen from './FavoritesScreen';
 
 const Tab = createBottomTabNavigator();
@@ -107,4 +107,6 @@ const PokemonScreen: React.FC = () => {
         <Tab.Screen name="PokemonList" component={PokemonListScreen} />
         <Tab.Screen name="Favorites" component={FavoritesScreen} />
       </Tab.Navigator>
-   
+    </Container>
+  );
+        };

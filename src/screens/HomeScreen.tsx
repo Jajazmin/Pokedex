@@ -14,7 +14,7 @@ const HomeScreen = () => {
   );
 
   React.useEffect(() => {
-    dispatch(fetchPokemons());
+    dispatch(fetchPokemon());
   }, [dispatch]);
 
   return (
