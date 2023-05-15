@@ -1,10 +1,19 @@
 {
   "dependencies": {
+    "@types/react-redux": "^7.1.25",
+    "apollo-boost": "^0.4.9",
+    "apollo-client": "^2.6.10",
     "expo": "^48.0.7",
+    "graphql": "^15.8.0",
+    "graphql-tag": "^2.12.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.71.3",
-    "react-native-web": "~0.18.7"
+    "react-native-web": "~0.18.7",
+    "react-redux": "^8.0.5",
+    "redux": "^4.2.1",
+    "redux-thunk": "^2.4.2",
+    "styled-components": "^5.3.10"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
